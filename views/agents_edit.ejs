@@ -1,0 +1,426 @@
+<h3 class="page-title"> Контрагент&nbsp;&nbsp;<a href="/agents" class="btn blue btn-outline">Назад</a></h3>
+
+<div class="row">
+	<div class="col-md-12">
+		<input type="hidden" id="agent-id" value="<%=agent.id%>" />
+		<div class="row">
+			<div class="col-md-12">
+				<div class="btn green" onclick="Save()">Сохранить</div>
+				<div class="btn default" onclick="Cancel()">Отменить</div>
+				<div class="btn red-pink pull-right" onclick="Delete()">Удалить</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<br>
+				<input type="text" placeholder="Наименование" class="form-control input-lg" id="agent-name" value="<%=agent.name%>" />
+				<br>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-info"></i>
+							<span class="caption-subject bold uppercase"> Основное</span>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="form-group">
+							<div class="col-md-9 col-md-offset-3">
+								<label class="radio-inline">
+									<input type="radio" name="agent-type" value="customer" <%=agent.type=='customer' ? 'checked=""': ''%>>Частный клиент
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="agent-type" value="company" <%=agent.type=='company' ? 'checked=""': ''%>>Компания
+								</label>
+							</div>
+						</div>
+						<br>
+						<form class="form-horizontal" role="form" id="general">
+							<div class="form-body">
+								<div class="form-group">
+									<label class="col-md-3 control-label">Проект</label>
+									<div class="col-md-9">
+										<select class="form-control" name="project">
+											<option value='' <%=agent.project=='' ? 'selected': '' %>></option>
+											<% for (var i = 0; i < projects.length; ++i) { %>
+												<option <%=agent.project==projects[i].id? 'selected': '' %> value="
+													<%= projects[i].id %>">
+														<%=projects[i].name%>
+												</option>
+												<% } %>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Телефон</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" name="phone" placeholder="74950000000" value="<%=agent.phone%>">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Email</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" name="email" placeholder="info@ivamar.pro" value="<%=agent.email%>">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Сайт</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" name="website" placeholder="bms.ivamar.pro" value="<%=agent.website%>">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Комментарий</label>
+									<div class="col-md-9">
+										<textarea class="form-control" rows="3" name="comment"><%=agent.comment%></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-3">Группы</label>
+									<div class="col-md-9">
+										<select multiple="multiple" class="multi-select" id="groups" name="groups">
+											<% for (var i = 0; i < groups.length; ++i) { %>
+												<option value="<%= groups[i].id %>" <%=agent.groups.indexOf(groups[i].id)!=-1 ? 'selected': ''%>>
+													<%=groups[i].name%>
+												</option>
+												<% } %>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">Почтовый адрес</label>
+									<div class="col-md-9">
+										<textarea class="form-control" rows="3" name="mailAddress"><%=agent.mailAddress%></textarea>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<hr>
+
+				<div id="requisites-body">
+					<% for (var i = 0; i < requisites.length; ++i) { %>
+						<div class="portlet box blue">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-building-o"></i>
+									<span class="caption-subject bold uppercase"> Реквизиты</span>
+								</div>
+								<div class="tools">
+									<a href="javascript:;" class="remove" data-original-title="" title="" onclick="DeleteRequisites(event)"></a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<form class="form-horizontal requisites-form" role="form">
+									<div class="form-body">
+										<div class="form-group">
+											<label class="col-md-3 control-label">Тип контрагента</label>
+											<div class="col-md-9">
+												<select class="form-control" name="type">
+													<option value="1" <%=requisites[i].type=='1' ? 'selected': '' %>>Юридическое лицо</option>
+													<option value="2" <%=requisites[i].type=='2' ? 'selected': '' %>>Индивидуальный предприниматель</option>
+													<option value="3" <%=requisites[i].type=='3' ? 'selected': '' %>>Физическое лицо</option>
+													<option <%=requisites[i].type=='' ? 'selected': '' %> disabled hidden style='display: none' value=''></option>
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Полное наименование</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="name" placeholder="..." value="<%=requisites[i].name%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Юридический адресс</label>
+											<div class="col-md-9">
+												<textarea class="form-control" rows="3" name="address"><%=requisites[i].address%></textarea>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">ИНН</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="inn" placeholder="..." value="<%=requisites[i].inn%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">КПП</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="kpp" placeholder="..." value="<%=requisites[i].kpp%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">ОГРН</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="ogrn" placeholder="..." value="<%=requisites[i].ogrn%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">ОКПО</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="okpo" placeholder="..." value="<%=requisites[i].okpo%>">
+											</div>
+										</div>
+									</div>
+								</form>
+								<div class="row">
+									<div class="col-md-9 col-md-offset-3">
+										<label class="radio-inline">
+											<input type="radio" name="requisites-default" value="<%=i%>" <%=requisites[i].default=='true' ? 'checked': ''%>> Реквизиты по умолчанию
+										</label>
+									</div>
+									<div class="col-md-12">
+										<br>
+									</div>
+								</div>
+
+								<div id="accounts-<%=i%>">
+									<% for (var j = 0; j < accounts.length; ++j) { if (accounts[j].rid == i) {%>
+										<div class="portlet box grey-silver" id="account-<%= j %>">
+											<div class="portlet-title">
+												<div class="caption">
+													<i class="fa fa-credit-card"></i>
+													<span class="caption-subject bold uppercase"> Расчётный счёт</span>
+												</div>
+												<div class="tools">
+													<a href="javascript:;" class="remove" data-original-title="" title="" onclick="DeleteAccount(event)"></a>
+												</div>
+											</div>
+											<div class="portlet-body">
+												<form class="form-horizontal accounts-form" role="form">
+													<div class="form-body">
+														<input type="hidden" name="rid" value="<%=i%>"></input>
+
+														<div class="form-group">
+															<label class="col-md-3 control-label">Номер счёта</label>
+															<div class="col-md-9">
+																<input type="text" class="form-control" name="number" placeholder="..." value="<%=accounts[j].number%>">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label class="col-md-3 control-label">БИК</label>
+															<div class="col-md-9">
+																<input type="text" class="form-control" name="bik" placeholder="..." value="<%=accounts[j].bik%>">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label class="col-md-3 control-label">Банк</label>
+															<div class="col-md-9">
+																<input type="text" class="form-control" name="bank" placeholder="..." value="<%=accounts[j].bank%>">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label class="col-md-3 control-label">Адрес банка</label>
+															<div class="col-md-9">
+																<input type="text" class="form-control" name="bank_address" placeholder="..." value="<%=accounts[j].bank_address%>">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label class="col-md-3 control-label">Корр. счёт</label>
+															<div class="col-md-9">
+																<input type="text" class="form-control" name="correspondent_accout" placeholder="..." value="<%=accounts[j].correspondent_accout%>">
+															</div>
+														</div>
+													</div>
+												</form>
+												<div class="row">
+													<div class="col-md-9 col-md-offset-3">
+														<label class="radio-inline">
+															<input type="radio" name="accounts-default" value="<%=j%>" <%=accounts[j].default=='true' ? 'checked': ''%>> Счёт по умолчанию
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<% }} %>
+								</div>
+
+								<div class="row">
+									<div class="col-md-3">
+										<a href="javascript:;" class="btn btn-sm green" onclick="AddAccount(<%=i%>)">
+											<i class="fa fa-plus"></i> Добавить счёт
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% } %>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">
+						<a href="javascript:;" class="btn btn-sm green" onclick="AddRequisites()">
+							<i class="fa fa-plus"></i> Добавить реквизиты
+						</a>
+					</div>
+					<br>
+					<hr>
+				</div>
+
+			</div>
+			<div class="col-md-6">
+
+				<div id="contacts">
+					<% for (var i = 0; i < contacts.length; ++i) { %>
+						<div class="portlet box blue" id="contact-<%= i %>">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-users"></i>
+									<span class="caption-subject bold uppercase"> Контакт #<%=i+1%></span>
+								</div>
+								<div class="tools">
+									<a href="javascript:;" class="remove" data-original-title="" title="" onclick="DeleteContacts(event)"></a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<form class="form-horizontal contact-form" role="form">
+									<div class="form-body">
+										<div class="form-group">
+											<div class="col-md-12 control-label">
+												<input type="text" placeholder="Имя Фамилия" class="form-control" name="name" value="<%=contacts[i].name%>" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">Должность</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="position" placeholder="..." value="<%=contacts[i].position%>">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">Телефон моб.</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="cellphone" placeholder="74950000000" value="<%=contacts[i].cellphone%>">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">Телефон раб.</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="workphone" placeholder="..." value="<%=contacts[i].workphone%>">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">Email</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="email" placeholder="info@ivamar.pro" value="<%=contacts[i].email%>">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label">Skype</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="skype" placeholder="..." value="<%=contacts[i].skype%>">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<% } %>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">
+						<a href="javascript:;" class="btn btn-sm green" onclick="AddContacts()">
+							<i class="fa fa-plus"></i> Добавить контакт
+						</a>
+					</div>
+					<br>
+					<hr>
+				</div>
+
+				<div id="address">
+					<% for (var i = 0; i < address.length; ++i) { %>
+						<div class="portlet box blue" id="address-<%= i %>">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-map-marker"></i>
+									<span class="caption-subject bold uppercase"> Адрес доставки #<%=i+1%></span>
+								</div>
+								<div class="tools">
+									<a href="javascript:;" class="remove" data-original-title="" title="" onclick="DeleteAddress(event)"></a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<form class="form-horizontal address-form" role="form">
+									<div class="form-body">
+										<div class="form-group">
+											<label class="col-md-3 control-label">Город</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="city" placeholder="..." value="<%=address[i].city%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Улица</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="street" placeholder="..." value="<%=address[i].street%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Дом</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="house" placeholder="д. 1с1 или д. 1, стр. 1" value="<%=address[i].house%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Квартира/офис</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="flat" placeholder="..." value="<%=address[i].flat%>">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-md-3 control-label">Комментарий</label>
+											<div class="col-md-9">
+												<textarea class="form-control" rows="3" name="comment"><%=address[i].comment%></textarea>
+											</div>
+										</div>
+									</div>
+								</form>
+								<div class="row">
+									<div class="col-md-9 col-md-offset-3">
+										<label class="radio-inline">
+											<input type="radio" name="address-default" value="<%=i%>" <%=address[i].default=='true' ? 'checked': ''%>> Адрес по умолчанию
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% } %>
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">
+						<a href="javascript:;" class="btn btn-sm green" onclick="AddAddress()">
+							<i class="fa fa-plus"></i> Добавить адрес доставки
+						</a>
+					</div>
+					<br>
+					<hr>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<br>
+			<div class="col-md-12">
+				<div class="btn green" onclick="Save()">Сохранить</div>
+				<div class="btn default" onclick="Cancel()">Отменить</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,145 @@
+<div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+            <li class="sidebar-toggler-wrapper hide">
+                <div class="sidebar-toggler"> </div>
+            </li>
+
+            <li class="sidebar-search-wrapper">
+                <form class="sidebar-search" action="page_general_search_3.html" method="POST">
+                    <a href="javascript:;" class="remove">
+                        <i class="icon-close"></i>
+                    </a>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Поиск...">
+                        <span class="input-group-btn">
+                            <a href="javascript:;" class="btn submit">
+                                <i class="icon-magnifier"></i>
+                            </a>
+                        </span>
+                    </div>
+                </form>
+            </li>
+
+            <li class="nav-item start<%=section=='index'?' active':''%>">
+                <a href="/" class="nav-link nav-toggle">
+                    <i class="icon-home"></i>
+                    <span class="title">Главная</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+
+            <% if (authData.access.goods != "none") { %>
+            <li class="nav-item<%=section=='goods'?' active':''%>">
+                <a href="/goods" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">Товары и услуги</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <% if (authData.access.orders != "none") { %>
+            <li class="nav-item<%=section=='orders'?' active':''%>">
+                <a href="/orders" class="nav-link nav-toggle">
+                    <i class="icon-basket"></i>
+                    <span class="title">Заказы</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <% if (authData.access.stock != "none") { %>
+            <li class="nav-item<%=section=='stock'?' active':''%>">
+                <a href="/stock" class="nav-link nav-toggle">
+                    <i class="icon-folder"></i>
+                    <span class="title">Склад</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <% if (authData.access.leads != "none") { %>
+            <li class="nav-item<%=section=='leads'?' active':''%>">
+                <a href="/leads" class="nav-link nav-toggle">
+                    <i class="icon-docs"></i>
+                    <span class="title">Лиды</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <% if (authData.access.agents != "none") { %>
+            <li class="nav-item<%=section=='agents'?' active':''%>">
+                <a href="/agents" class="nav-link">
+                    <i class="icon-user"></i>
+                    <span class="title">Контрагенты</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <% if (authData.access.tasks != "none") { %>
+            <li class="nav-item<%=section=='tasks'?' active':''%>">
+                <a href="/tasks" class="nav-link nav-toggle">
+                    <i class="icon-bulb"></i>
+                    <span class="title">Задачи</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <% if (authData.access.directory != "none") { %>
+            <li class="nav-item<%=section=='directory'?' active':''%>">
+                <a href="/directory" class="nav-link nav-toggle">
+                    <i class="fa fa-book"></i>
+                    <span class="title">Справочник</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <% if (authData.access.wiki != "none") { %>
+            <li class="nav-item<%=section=='wiki'?' active':''%>">
+                <a href="/wiki" class="nav-link nav-toggle">
+                    <i class="fa fa-database"></i>
+                    <span class="title">Wiki</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+
+            <li class="nav-item<%=section=='profile'?' active':''%>">
+                <a href="/profile" class="nav-link nav-toggle">
+                    <i class="icon-settings"></i>
+                    <span class="title">Профиль</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+
+            <% if (authData.access.admin != "none") { %>
+            <li class="heading">
+                <h3 class="uppercase">Настройки системы</h3>
+            </li>
+
+            <li class="nav-item<%=section=='admin_users'?' active':''%>">
+                <a href="/admin/users" class="nav-link nav-toggle">
+                    <i class="icon-users"></i>
+                    <span class="title">Пользователи</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+
+            <li class="nav-item<%=section=='admin_projects'?' active':''%>">
+                <a href="/admin/projects" class="nav-link nav-toggle">
+                    <i class="fa fa-flask"></i>
+                    <span class="title">Проекты</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+</div>
+<!-- END SIDEBAR -->

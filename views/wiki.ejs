@@ -1,0 +1,51 @@
+<h3 class="page-title"> Wiki </h3>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-home"></i>
+          <span class="caption-subject bold"><%=article.title%></span>
+        </div>
+        <div class="actions">
+          <% if (((article.access == 'admin') && (authData.access.admin == 'all')) || (article.access == 'all')) { %>
+          <a href="/wiki/edit?page=<%=article.id%>" class="btn btn-outline yellow"><i class="fa fa-pencil"></i> Редактировать</a>
+          <% } %>
+          <a href="/wiki/edit?page=new" class="btn btn-outline green"><i class="fa fa-plus"></i> Новая страница</a>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <%-article.text%>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div id="pages">
+      <input class="search form-control" placeholder="Поиск" /><br>
+      <select id="agent" class="form-control">
+        <option value="" <%=article.agent==''?'selected':''%>></option>
+        <% for (i = 0; i < agents.length; ++i) { %>
+        <option value="<%=agents[i].id%>" <%=article.agent==agents[i].id?'selected':''%>><%=agents[i].name%></option>
+        <% } %>
+      </select><br>
+      <select id="project" class="form-control">
+        <option value="" <%=article.project==''?'selected':''%>></option>
+        <% for (i = 0; i < projects.length; ++i) { %>
+        <option value="<%=projects[i].id%>" <%=article.project==projects[i].id?'selected':''%>><%=projects[i].name%></option>
+        <% } %>
+      </select>
+      <br>
+      <ul class="list">
+        <% for (var i in pages) { %>
+        <li <%-((pages[i].access=='admin') && (authData.access.admin != 'all'))?'style="display: none;"':''%>>
+          <a href="/wiki?page=<%=i%>" class="blue bold"><div class="name"><%=pages[i].title%></div></a>
+          <div class="agent" style="display: none"><%=pages[i].agent%></div>
+          <div class="project" style="display: none"><%=pages[i].project%></div>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</div>

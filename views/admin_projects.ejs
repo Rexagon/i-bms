@@ -1,0 +1,35 @@
+<h3 class="page-title">Проекты</h3>
+
+<div class="table-toolbar">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group">
+                <button id="table-projects-new" class="btn green"> Добавить
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-striped table-hover table-bordered" id="table-projects">
+    <thead>
+        <tr>
+            <th> Имя </th>
+            <th> Редактировать </th>
+            <th> Удалить </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (var i = 0; i < projects.length; ++i) { %>
+        <tr id="<%= projects[i].id %>">
+            <td> <%= projects[i].name %> </td>
+            <td>
+                <a class="edit" href="javascript:;"> Редактировать </a>
+            </td>
+            <td>
+                <a class="delete" href="javascript:;"> Удалить </a>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>

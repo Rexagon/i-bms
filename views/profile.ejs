@@ -1,0 +1,101 @@
+<h3 class="page-title"> Профиль </h3>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="profile-sidebar">
+      <div class="portlet light profile-sidebar-portlet ">
+        <div class="profile-userpic">
+          <img src="<%= authData.info.imageUrl %>" class="img-responsive" alt=""> </div>
+
+        <div class="profile-usertitle">
+          <div class="profile-usertitle-name">
+            <%= authData.firstName %>
+          </div>
+          <div class="profile-usertitle-job">
+            <%= authData.position %>
+          </div>
+        </div>
+      </div>
+      <div class="portlet light ">
+        <div class="row list-separated profile-stat">
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <div class="uppercase profile-stat-title"> 0 </div>
+            <div class="uppercase profile-stat-text"> Заказов </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <div class="uppercase profile-stat-title"> 0 </div>
+            <div class="uppercase profile-stat-text"> Заданий </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-6">
+            <div class="uppercase profile-stat-title"> 0 </div>
+            <div class="uppercase profile-stat-text"> Ещё что-то </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet light ">
+            <div class="portlet-title tabbable-line">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a href="#tab_1_1" data-toggle="tab">Персональная информация</a>
+                </li>
+                <li>
+                  <a href="#tab_1_2" data-toggle="tab">Сменить пароль</a>
+                </li>
+              </ul>
+            </div>
+            <div class="portlet-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                  <form role="form">
+                    <div class="form-group">
+                      <label class="control-label">Имя</label>
+                      <input type="text" placeholder="Иван" class="form-control" name="name" value="<%=authData.info.name%>" /> </div>
+                    <div class="form-group">
+                      <label class="control-label">Фамилия</label>
+                      <input type="text" placeholder="Иванов" class="form-control" name="surname" value="<%=authData.info.surname%>" /> </div>
+                    <div class="form-group">
+                      <label class="control-label">Телефон</label>
+                      <input type="text" placeholder="1(123)456 78 90" class="form-control" name="phone" value="<%=authData.info.phone%>" /> </div>
+                    <div class="form-group">
+                      <label class="control-label">Должность</label>
+                      <input type="text" placeholder="Менеджер" class="form-control" name="position" value="<%=authData.info.position%>" /> </div>
+                    <div class="form-group">
+                      <label class="control-label">Обо мне</label>
+                      <textarea class="form-control" rows="3" placeholder="Обожаю node.js" name="about">
+                        <%=authData.info.about%>
+                      </textarea>
+                    </div>
+                    <div class="margiv-top-10">
+                      <a href="javascript:;" onclick="SaveAboutInfo()" class="btn green"> Сохранить </a>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane" id="tab_1_2">
+                  <form role="form">
+                    <div class="form-group">
+                      <label class="control-label">Текущий пароль</label>
+                      <input type="password" class="form-control" name="current" /> </div>
+                    <div class="form-group">
+                      <label class="control-label">Новый пароль</label>
+                      <input type="password" class="form-control" name="new" /> </div>
+                    <div class="form-group">
+                      <label class="control-label">Повторите новый пароль</label>
+                      <input type="password" class="form-control" name="new_retype" /> </div>
+                    <div class="margin-top-10">
+                      <a href="javascript:;" onclick="ChangePassword()" class="btn green"> Подтвердить </a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

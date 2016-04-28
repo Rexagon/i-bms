@@ -1,0 +1,323 @@
+<h3 class="page-title"> Группа&nbsp;&nbsp;<a href="/goods?cg=<%=group.id%>" class="btn blue btn-outline">Назад</a></h3>
+
+<input type="hidden" id="group-id" value="<%=group.id%>"/>
+<div class="row">
+  <div class="col-md-12">
+    <div class="btn green" onclick="Save()">Сохранить</div>
+    <div class="btn default" onclick="Cancel()">Отменить</div>
+  </div>
+
+  <div class="col-md-12">
+    <br>
+    <div class="tabbable-line tabbable-full-width">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#tab_1" data-toggle="tab">Основное</a>
+        </li>
+        <li>
+          <a href="#tab_2" data-toggle="tab">Описания</a>
+        </li>
+        <li>
+          <a href="#tab_3" data-toggle="tab">Свойства</a>
+        </li>
+        <li>
+          <a href="#tab_4" data-toggle="tab">Фото</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- BEGIN GENERAL INFO TAB -->
+        <div class="tab-pane active" id="tab_1">
+          <form class="form-horizontal" role="form" id="form-general">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-md-3 control-label">Наименование</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" name="text" placeholder="" value="<%=group.text%>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Группа</label>
+                <div class="col-md-8">
+                  <select name="parent" class="form-control">
+                    <option value="root" <%=group.parent=='root'?'selected':''%>></option>
+                    <% for (i = 0; i < groups.length; ++i) { %>
+                    <option value="<%=groups[i].id%>" <%=group.parent==groups[i].id?'selected':''%>><%-groups[i].text%></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Производитель</label>
+                <div class="col-md-8">
+                  <select name="producer" class="form-control">
+                    <option value="" <%=group.producer==''?'selected':''%>></option>
+                    <% for (i = 0; i < producers.length; ++i) { %>
+                    <option value="<%=producers[i].id%>" <%=group.producer==producers[i].id?'selected':''%>><%=producers[i].name%></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Страна производства</label>
+                <div class="col-md-8">
+                  <select name="country" class="form-control">
+                    <option value="" <%=group.country==''?'selected':''%>></option>
+                    <% for (i = 0; i < countries.length; ++i) { %>
+                    <option value="<%=countries[i].id%>" <%=group.country==countries[i].id?'selected':''%>><%=countries[i].name%></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Поставщик</label>
+                <div class="col-md-8">
+                  <select name="provider" class="form-control">
+                    <option value="" <%=group.provider==''?'selected':''%>></option>
+                    <% for (i = 0; i < providers.length; ++i) { %>
+                    <option value="<%=providers[i].id%>" <%=group.provider==providers[i].id?'selected':''%>><%=providers[i].name%></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-md-4">Опубликовать на сайте</label>
+                <div class="col-md-8">
+                  <div class="checkbox-list">
+                    <input type="checkbox" value="true" name="publish" <%=group.publish=='true'?'checked':''%> disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4">Новинка</label>
+                <div class="col-md-8">
+                  <div class="checkbox-list">
+                    <input type="checkbox" value="true" name="isnew" <%=group.isnew=='true'?'checked':''%>>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- END GENERAL INFO TAB -->
+        <!-- BEGIN DESCRIPTION TAB -->
+        <div class="tab-pane" id="tab_2">
+          <form class="form-horizontal form-bordered" id="form-description">
+            <div class="form-body">
+              <div class="form-group">
+                <label class="control-label col-md-2">Краткое описание</label>
+                <div class="col-md-10">
+                  <textarea class="wysihtml5 form-control" rows="6" name="short_description"><%-group.short_description%></textarea>
+                </div>
+              </div>
+              <div class="form-group last">
+                <label class="control-label col-md-2">Полное описание</label>
+                <div class="col-md-10">
+                  <textarea class="wysihtml5 form-control" rows="6" name="full_description"><%-group.full_description%></textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- END DESCRIPTION TAB -->
+        <!-- BEGIN PROPERTIES TAB -->
+        <div class="tab-pane" id="tab_3">
+          <form class="form-horizontal form-bordered" id="form-properties">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-md-4 control-label">Шаблон свойств</label>
+                <div class="col-md-8">
+                  <select name="template" class="form-control" onchange="TemplateChange(this);">
+                    <option value="" <%=group.template==''?'selected':''%>></option>
+                    <% for (var i in properties) { %>
+                    <option value="<%=i%>" <%=group.template==i?'selected':''%>><%=i%></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <div id="properties">
+                <% var templateName = group.template; if (properties[templateName]) { for (var i in properties[templateName]) { var property = properties[templateName][i]; %>
+                <div class="form-group">
+                  <label class="col-md-4 control-label"><%=property.text%></label>
+                  <div class="col-md-8">
+                  <% if (property.type == 'text') { %>
+                    <input type="input" class="form-control" name="<%=templateName+'_'+property.name%>" placeholder="<%=property.placeholder%>" value="<%=group[templateName+'_'+property.name]%>">
+                  <% } else if (property.type == 'select') { %>
+                    <select name="<%=templateName+'_'+property.name%>" class="form-control">
+                      <option value="" <%=group[templateName+'_'+property.name]==''?'selected':''%>></option>
+                      <% for (i = 0; i < property.options.length; ++i) { %>
+                      <option value="<%=property.options[i].value%>" <%=group[templateName+'_'+property.name]==property.options[i].value?'selected':''%>><%=property.options[i].text%></option>
+                      <% } %>
+                    </select>
+                  <% } else if (property.type == 'multiple') { %>
+                    <select multiple="multiple" class="multi-select" name="<%=templateName+'_'+property.name%>">
+											<% for (var i in property.options) { %>
+											<option value="<%=property.options[i].value%>" <%=((group[templateName+'_'+property.name]!=undefined) && (group[templateName+'_'+property.name].indexOf(property.options[i].value)!=-1)) ? 'selected': ''%>><%=property.options[i].text%></option>
+											<% } %>
+										</select>
+                  <% } %>
+                  </div>
+                </div>
+                <% }} %>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- END PROPERTIES TAB -->
+        <!-- BEGIN PHOTO TAB -->
+        <div class="tab-pane" id="tab_4">
+          <div class="col-md-12">
+            <div class="row">
+              <h3>Малое изображение</h3>
+              <form id="fileupload-small" enctype="multipart/form-data">
+                <table class="table table-bordered table-striped clearfix">
+                  <tr>
+                    <td <%-group.imageSmall!=undefined?'':'style="display: none;"'%> id="small-image-td">
+                      <img id="small-image" src="<%=group.imageSmall!=undefined?group.imageSmall.url:''%>" width="120px">
+                    </td>
+                    <td <%-group.imageSmall!=undefined?'':'style="display: none;"'%> id="small-description-td">
+                      <input type="text" class="form-control" id="small-description" name="description" placeholder="Описание" value="<%=group.imageSmall!=undefined?group.imageSmall.description:''%>">
+                    </td>
+                    <td>
+                      <span class="btn green fileinput-button">
+                        <i class="fa fa-plus"></i>
+                        <span id="small-add-text"> <%-group.imageSmall!=undefined?'Изменить фото':'Добавить фото'%> </span>
+                        <input type="file" name="file" data-url="/goods/groups/photosmall/upload" accept="image/jpeg,image/png">
+                      </span>
+                      <button class="btn red delete btn" <%-group.imageSmall!=undefined?'':'style="display: none;"'%> onclick="DeleteSmallPhoto(event, this)" id="small-delete-btn">
+                        <i class="fa fa-trash-o"></i>
+                        <span>Удалить</span>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+            </form>
+            </div>
+            <hr>
+            <div class="row">
+              <h3>Основные изображения</h3>
+              <form id="fileupload" enctype="multipart/form-data">
+                <div class="row fileupload-buttonbar">
+                  <div class="col-lg-7">
+                    <span class="btn green fileinput-button">
+                      <i class="fa fa-plus"></i>
+                      <span> Добавить фото... </span>
+                      <input type="file" name="files[]" data-url="/goods/groups/photos/upload" accept="image/jpeg,image/png" multiple="">
+                    </span>
+                    <button type="submit" class="btn blue start">
+                      <i class="fa fa-upload"></i>
+                      <span> Загрузить </span>
+                    </button>
+                    <button type="reset" class="btn warning cancel">
+                      <i class="fa fa-ban-circle"></i>
+                      <span> Отменить загрузку </span>
+                    </button>
+                    <button type="button" class="btn red delete">
+                      <i class="fa fa-trash"></i>
+                      <span> Удалить </span>
+                    </button>
+                    <span class="fileupload-process"></span>
+                  </div>
+
+                  <div class="col-lg-5 fileupload-progress fade">
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                      <div class="progress-bar progress-bar-success" style="width:0%;"> </div>
+                    </div>
+                    <div class="progress-extended"> &nbsp; </div>
+                  </div>
+                </div>
+
+                <table role="presentation" class="table table-bordered table-striped clearfix">
+                  <tbody class="files"></tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+
+          <script id="template-upload" type="text/x-tmpl"> {% for (var i=0, file; file=o.files[i]; i++) { %}
+            <tr class="template-upload fade">
+              <td>
+                <span class="preview"></span>
+              </td>
+              <td>
+                <p class="name">{%=file.name%}</p>
+                <strong class="error text-danger label label-danger"></strong>
+              </td>
+              <td>
+                <p class="size">Обработка...</p>
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                  <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+              </td>
+              <td> {% if (!i && !o.options.autoUpload) { %}
+                <button class="btn blue start" disabled>
+                  <i class="fa fa-upload"></i>
+                  <span>Загрузить</span>
+                </button> {% } %} {% if (!i) { %}
+                <button class="btn red cancel">
+                  <i class="fa fa-ban"></i>
+                  <span>Отменить</span>
+                </button> {% } %}
+              </td>
+            </tr> {% } %}
+          </script>
+          <script id="template-download" type="text/x-tmpl"> {% for (var i=0, file; file=o.files[i]; i++) { %}
+            <tr class="template-download fade">
+              <td>
+                <span class="preview"> {% if (file.thumbnailUrl) { %}
+                  <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery>
+                    <img src="{%=file.thumbnailUrl%}" width="120px">
+                  </a> {% } %}
+                </span>
+              </td>
+              <td>
+                <p class="name"> {% if (file.url) { %}
+                  <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a> {% } else { %}
+                  <span>{%=file.name%}</span> {% } %}
+                </p> {% if (file.error) { %}
+                <div>
+                  <span class="label label-danger">Ошибка</span> {%=file.error%}
+                </div> {% } %}
+                <span class="size">{%=o.formatFileSize(file.size)%}</span>
+              </td>
+              <td>
+                <input type="text" class="form-control" id="{%=file.name.substr(0,file.name.length-4)%}" name="description[]" placeholder="Описание" value="{%=file.description%}">
+              </td>
+              <td>
+                <label class="radio-inline">
+                  <input type="radio" name="isDefault" value="{%=file.name.substr(0,file.name.length-4)%}" {%=file.isDefault=='true'?'checked=""':''%}>По умолчанию
+                </label>
+              </td>
+              <td>
+                <button class="btn btn-icon-only green btn-outline sort-asc" onclick="MoveRowUp(event, this)" {%=i==0?'disabled':''%}>
+                  <i class="fa fa-sort-asc"></i>
+                </button>
+                <button class="btn btn-icon-only green btn-outline sort-desc" onclick="MoveRowDown(event, this)" {%=i==o.files.length-1?'disabled':''%}>
+                  <i class="fa fa-sort-desc"></i>
+                </button>
+              </td>
+              <td> {% if (file.deleteUrl) { %}
+                <button class="btn red delete btn-sm" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                  <i class="fa fa-trash-o"></i>
+                  <span>Удалить</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle"> {% } else { %}
+                <button class="btn yellow cancel btn-sm">
+                  <i class="fa fa-ban"></i>
+                  <span>Отменить</span>
+                </button> {% } %}
+              </td>
+            </tr> {% } %}
+          </script>
+        </div>
+        <!-- END PHOTO TAB -->
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var smallImage = <%-group.imageSmall!=undefined?JSON.stringify(group.imageSmall):'undefined'%>;
+  var templates = <%-properties!=undefined?JSON.stringify(properties):'undefined'%>
+</script>

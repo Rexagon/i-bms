@@ -1,0 +1,73 @@
+<h3 class="page-title"> Контрагенты&nbsp;&nbsp;<a href="/agents/groups/" class="btn blue btn-outline">Группы</a></h3>
+
+<div class="row"><br>
+	<div class="col-md-12">
+		<div class="portlet light portlet-fit portlet-datatable bordered">
+			<div class="portlet-title">
+				<div class="caption">
+					<a href="/agents/edit?id=new" class="btn green">
+						<i class="fa fa-plus"></i> Добавить контрагента
+					</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-container">
+					<table class="table table-striped table-bordered table-hover table-checkable" id="agents-datatable">
+						<thead>
+							<tr role="row" class="heading">
+								<th width="2%">
+									<input type="checkbox" class="group-checkable">
+								</th>
+								<th width="10%"> Тип </th>
+								<th width="20%"> Наименование </th>
+								<th width="11%"> Телефон </th>
+								<th width="20%"> Проект </th>
+								<th width="28%"> Группы </th>
+								<th width="9%"> Действия </th>
+							</tr>
+							<tr role="row" class="filter">
+								<td></td>
+								<td>
+									<select name="agent_type" class="form-control form-filter input-sm">
+										<option value=""></option>
+										<option value="customer">Частный клиент</option>
+										<option value="company">Компания</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" class="form-control form-filter input-sm" name="agent_name">
+								</td>
+								<td>
+									<input type="text" class="form-control form-filter input-sm" name="agent_phone">
+								</td>
+								<td>
+									<select name="agent_project" class="form-control form-filter input-sm">
+										<option value=""></option>
+										<% for (i = 0; i < projects.length; ++i) { %>
+										<option value="<%-projects[i].id%>"><%=projects[i].name%></option>
+										<% } %>
+									</select>
+								</td>
+								<td>
+									<select name="agent_group" class="form-control form-filter input-sm">
+										<option value=""></option>
+										<% for (i = 0; i < groups.length; ++i) { %>
+										<option value="<%-groups[i].id%>"><%=groups[i].name%></option>
+										<% } %>
+									</select>
+								</td>
+								<td>
+									<div class="btn-group">
+										<button class="btn btn-sm green btn-outline filter-submit btn-icon-only"><i class="fa fa-search"></i></button>
+										<button class="btn btn-sm red btn-outline filter-cancel btn-icon-only"><i class="fa fa-times"></i></button>
+									</div>
+								</td>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

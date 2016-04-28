@@ -1,0 +1,26 @@
+{
+  "name": "ivamar-bms",
+  "version": "0.0.1",
+  "description": "Business Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production nohup node server.js --max-old-space-size 5 >/dev/null 2>&1 &"
+  },
+  "author": "Ivan Kalinin",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.1",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "firebase": "^2.4.1",
+    "get-folder-size": "^1.0.0",
+    "jfum": "^1.0.3",
+    "multer": "^1.1.0",
+    "nodemailer": "^2.3.0",
+    "password-generator": "^2.0.2",
+    "serve-favicon": "^2.3.0",
+    "shortid": "^2.2.6"
+  }
+}

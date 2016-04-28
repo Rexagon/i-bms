@@ -1,0 +1,60 @@
+<h3 class="page-title"> Товары </h3>
+
+<div class="row">
+  <div class="col-md-3">
+    <div id="tree"></div>
+  </div>
+  <div class="col-md-9">
+    <a href="/goods/edit?id=new&group=root" class="btn green" id="new-product-btn">
+      <i class="fa fa-plus"></i> Добавить товар
+    </a><hr>
+
+    <div class="table-container">
+      <table class="table table-striped table-bordered table-hover table-checkable" id="goods-datatable">
+        <thead>
+          <tr role="row" class="heading">
+            <th width="2%">
+              <input type="checkbox" class="group-checkable">
+            </th>
+            <th width="130px"> Малое фото </th>
+            <th width=""> Наименование </th>
+            <th width=""> Объём </th>
+            <th width=""> Цена продажи </th>
+            <th width=""> Цена закупочная </th>
+            <th width=""> Наличие </th>
+            <th width=""> Действия </th>
+          </tr>
+          <tr role="row" class="filter">
+            <td></td>
+            <td></td>
+            <td>
+              <input type="text" class="form-control form-filter input-sm" name="product_name" id="product_name">
+            </td>
+            <td>
+              <input type="text" class="form-control form-filter input-sm" name="product_volume" id="product_volume">
+            </td>
+            <td>
+              <input type="text" class="form-control form-filter input-sm" name="product_selling_price" id="product_selling_price">
+            </td>
+            <td>
+              <input type="text" class="form-control form-filter input-sm" name="product_purchase_price" id="product_purchase_price">
+            </td>
+            <td>
+              <input type="checkbox" name="product_instock" id="instock">
+            </td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm green btn-outline filter-submit btn-icon-only" id="search-btn"><i class="fa fa-search"></i></button>
+                <button class="btn btn-sm red btn-outline btn-icon-only" id="cancel-btn"><i class="fa fa-times"></i></button>
+              </div>
+            </td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  var currentGroupId = '<%=currentGroup==undefined?"root":currentGroup%>';
+</script>
