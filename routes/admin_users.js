@@ -121,8 +121,8 @@ router.post('/admin/users/edit/rights', app.restrict, app.restrictPage, function
             var i = 0;
 
             var user = data.val();
-            for (page in user.access) {
-                rights[page] = req.body.rights[i];
+            for (page in req.body.rights) {
+                rights[page] = req.body.rights[page];
                 i++;
             }
 
@@ -184,7 +184,7 @@ router.post('/admin/users/get/pages', app.restrict, app.restrictPage, function(r
         var pages = [];
 
         snapshot.forEach(function(data) {
-            pages.push(data.val().title);
+            pages.push({title: data.val().title, id: data.key()});
         });
 
         res.send(pages);

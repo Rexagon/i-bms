@@ -18,9 +18,11 @@
     "get-folder-size": "^1.0.0",
     "jfum": "^1.0.3",
     "multer": "^1.1.0",
+    "node-schedule": "^1.1.0",
     "nodemailer": "^2.3.0",
     "password-generator": "^2.0.2",
     "serve-favicon": "^2.3.0",
-    "shortid": "^2.2.6"
+    "shortid": "^2.2.6",
+    "xml2js": "^0.4.16"
   }
 }

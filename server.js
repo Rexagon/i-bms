@@ -33,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname,'static','favicon.ico')));
 
 fm.connect(process.argv[3]);
+var exRates = require('./exchange_rates.js');
 
 // Define routes
 app.use('/', require('./routes/login'));
@@ -50,6 +51,7 @@ app.use('/', require('./routes/admin_users'));
 app.use('/', require('./routes/admin_projects'));
 app.use('/', require('./routes/directory'));
 app.use('/', require('./routes/wiki'));
+app.use('/', require('./routes/currency'));
 
 app.use(function(req, res, next) {
 	res.status(404).render('error_pages/404');

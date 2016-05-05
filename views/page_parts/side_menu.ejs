@@ -5,7 +5,7 @@
                 <div class="sidebar-toggler"> </div>
             </li>
 
-            <li class="sidebar-search-wrapper">
+            <!--<li class="sidebar-search-wrapper">
                 <form class="sidebar-search" action="page_general_search_3.html" method="POST">
                     <a href="javascript:;" class="remove">
                         <i class="icon-close"></i>
@@ -19,7 +19,7 @@
                         </span>
                     </div>
                 </form>
-            </li>
+            </li>-->
 
             <li class="nav-item start<%=section=='index'?' active':''%>">
                 <a href="/" class="nav-link nav-toggle">
@@ -89,16 +89,6 @@
             </li>
             <% } %>
 
-            <% if (authData.access.directory != "none") { %>
-            <li class="nav-item<%=section=='directory'?' active':''%>">
-                <a href="/directory" class="nav-link nav-toggle">
-                    <i class="fa fa-book"></i>
-                    <span class="title">Справочник</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-            <% } %>
-
             <% if (authData.access.wiki != "none") { %>
             <li class="nav-item<%=section=='wiki'?' active':''%>">
                 <a href="/wiki" class="nav-link nav-toggle">
@@ -109,13 +99,15 @@
             </li>
             <% } %>
 
-            <li class="nav-item<%=section=='profile'?' active':''%>">
-                <a href="/profile" class="nav-link nav-toggle">
-                    <i class="icon-settings"></i>
-                    <span class="title">Профиль</span>
+            <% if (authData.access.currency != "none") { %>
+            <li class="nav-item<%=section=='currency'?' active':''%>">
+                <a href="/currency" class="nav-link nav-toggle">
+                    <i class="fa fa-area-chart"></i>
+                    <span class="title">Курсы валют</span>
                     <span class="selected"></span>
                 </a>
             </li>
+            <% } %>
 
             <% if (authData.access.admin != "none") { %>
             <li class="heading">
@@ -134,6 +126,14 @@
                 <a href="/admin/projects" class="nav-link nav-toggle">
                     <i class="fa fa-flask"></i>
                     <span class="title">Проекты</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+
+            <li class="nav-item<%=section=='directory'?' active':''%>">
+                <a href="/directory" class="nav-link nav-toggle">
+                    <i class="fa fa-book"></i>
+                    <span class="title">Справочник</span>
                     <span class="selected"></span>
                 </a>
             </li>

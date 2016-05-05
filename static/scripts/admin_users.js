@@ -9,7 +9,7 @@ var ShowAccessEditTable = function(rights) {
 
         access[rights[i]] = 'selected';
 
-        html += '<tr><td> ' + pages[i] + '</td><td><select id="access-page-' + i + '" class="form-control input-small input-inline"><option value="all"' + access['all'] + '>Все права</option><option value="read"' + access['read'] + '>Чтение</option><option value="none"' + access['none'] + '>Закрыто</option></select></td></tr>';
+        html += '<tr><td> ' + pages[i].title + '</td><td><select id="' + pages[i].id + '" class="form-control input-small input-inline"><option value="all"' + access['all'] + '>Все права</option><option value="read"' + access['read'] + '>Чтение</option><option value="none"' + access['none'] + '>Закрыто</option></select></td></tr>';
     }
 
     html += '</tbody></table></div>';
@@ -38,10 +38,10 @@ var FillNewModal = function() {
 }
 
 var SaveRights = function(email) {
-    var rights = [];
+    var rights = {};
     var selectElements = document.getElementsByTagName('select');
     for (var i = 1; i < selectElements.length; ++i) {
-        rights.push(selectElements[i].options[selectElements[i].selectedIndex].value);
+        rights[selectElements[i].id] = selectElements[i].options[selectElements[i].selectedIndex].value;
     }
 
     if (email != '') {
@@ -56,10 +56,10 @@ var SaveRights = function(email) {
 }
 
 var CreateRights = function() {
-    var rights = [];
+    var rights = {};
     var selectElements = document.getElementsByTagName('select');
     for (var i = 1; i < selectElements.length; ++i) {
-        rights.push(selectElements[i].options[selectElements[i].selectedIndex].value);
+        rights[selectElements[i].id] = selectElements[i].options[selectElements[i].selectedIndex].value;
     }
 
     currentNewUserRights = rights;
@@ -111,9 +111,9 @@ var TableDatatablesEditable = function () {
             var newUser = (!jqInputs[3].disabled);
 
             if (jqInputs[3].value != '') {
-                $.post('/admin/users/edit/info', { 
-                    name : jqInputs[0].value, 
-                    surname : jqInputs[1].value, 
+                $.post('/admin/users/edit/info', {
+                    name : jqInputs[0].value,
+                    surname : jqInputs[1].value,
                     position : jqInputs[2].value,
                     email : jqInputs[3].value,
                     rights : currentNewUserRights, // only used if is newUser
@@ -144,29 +144,17 @@ var TableDatatablesEditable = function () {
         var table = $('#table');
 
         var oTable = table.dataTable({
-
-            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-            // So when dropdowns used the scrollable div should be removed. 
-            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
             "lengthMenu": [
                 [10, 20, 50, -1],
-                [10, 20, 50, "All"] // change per page values here
+                [10, 20, 50, "All"]
             ],
 
-            // Or you can use remote translation file
-            //"language": {
-            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
-            //},
-
-            // set the initial value
             "pageLength": 10,
 
             "language": {
-                "lengthMenu": " _MENU_ records"
+                "lengthMenu": " _MENU_ записей"
             },
-            "columnDefs": [{ // set default column settings
+            "columnDefs": [{
                 'orderable': true,
                 'targets': [0]
             }, {
@@ -175,7 +163,7 @@ var TableDatatablesEditable = function () {
             }],
             "order": [
                 [0, "asc"]
-            ] // set first column as a default sort by asc
+            ]
         });
 
         var tableWrapper = $("#table_wrapper");
@@ -197,13 +185,13 @@ var TableDatatablesEditable = function () {
                     oTable.fnDeleteRow(nEditing); // cancel
                     nEditing = null;
                     nNew = false;
-                    
+
                     return;
                 }
             }
 
-            var aiNew = oTable.fnAddData(['', '', '', '', 
-                '<span class="label label-sm label-danger"> Offline </span>', 
+            var aiNew = oTable.fnAddData(['', '', '', '',
+                '<span class="label label-sm label-danger"> Offline </span>',
                 '<a class="btn default" data-toggle="modal" href="#modal" onclick="FillNewModal()"><i class="fa fa-lock"></i> Изменить</a>', '', ''
             ]);
 
@@ -242,24 +230,19 @@ var TableDatatablesEditable = function () {
 
         table.on('click', '.edit', function (e) {
             e.preventDefault();
-
-            /* Get the row as a parent of the link that was clicked on */
             var nRow = $(this).parents('tr')[0];
 
             if (nEditing !== null && nEditing != nRow) {
-                /* Currently editing - but not this row - restore the old before continuing to edit mode */
                 restoreRow(oTable, nEditing);
                 editRow(oTable, nRow, false);
                 nEditing = nRow;
             } else if (nEditing == nRow && this.innerHTML == "Сохранить") {
-                /* Editing this row and want to save it */
                 saveRow(oTable, nEditing, function(success) {
                     if (success) {
                         nEditing = null;
                     }
                 });
             } else {
-                /* No edit in progress - let's start one */
                 editRow(oTable, nRow, false);
                 nEditing = nRow;
             }
@@ -267,8 +250,6 @@ var TableDatatablesEditable = function () {
     }
 
     return {
-
-        //main function to initiate the module
         init: function () {
             handleTable();
         }
