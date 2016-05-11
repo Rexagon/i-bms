@@ -73,13 +73,23 @@ var CreateTableData = function(request, goods) {
       image = '<img src="'+product.imageSmallUrl+'" width="120px">';
     }
 
+    var currensies = {
+      rub: '₽',
+      usd: '$',
+      eur: '€'
+    }
+    console.log(product);
+
+    var sPrice = product.selling_price_currency=='rub'? product.selling_price+currensies.rub : currensies[product.selling_price_currency]+product.selling_price;
+    var pPrice = product.purchase_price_currency=='rub'? product.purchase_price+currensies.rub : currensies[product.purchase_price_currency]+product.purchase_price;
+
     records.data.push([
       '<input type="checkbox" name="id[]" value="'+product.id+'">',
       image,
       product.name,
       product.volume,
-      product.selling_price,
-      product.purchase_price,
+      sPrice,
+      pPrice,
       product.instock=='true'?'Есть':'Нет',
       '<a href="goods/edit?id='+product.id+'" class="btn btn-sm green btn-outline">Изменить</a>'
     ]);
@@ -117,6 +127,8 @@ router.post('/goods/get', app.restrict, app.restrictPage, function(req, res) {
             volume : product.volume,
             selling_price : product.selling_price,
             purchase_price : product.purchase_price,
+            selling_price_currency : product.selling_price_currency,
+            purchase_price_currency : product.purchase_price_currency,
             instock : product.instock,
             imageSmallUrl : product.imageSmall?product.imageSmall.url:undefined,
           });
@@ -138,6 +150,8 @@ router.post('/goods/get', app.restrict, app.restrictPage, function(req, res) {
           volume : product.volume,
           selling_price : product.selling_price,
           purchase_price : product.purchase_price,
+          selling_price_currency : product.selling_price_currency,
+          purchase_price_currency : product.purchase_price_currency,
           instock : product.instock,
           imageSmallUrl : product.imageSmall?product.imageSmall.url:undefined,
         });
