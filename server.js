@@ -5,9 +5,14 @@ var session = require('express-session');
 var favicon = require('serve-favicon');
 var path = require('path');
 var fm = require('./firebase-manager.js');
+var fs = require('fs');
 
 console.log(process.env.NODE_ENV);
 var port = process.env.NODE_ENV == "development" ? 1337 : 80;
+
+if (!fs.existsSync('./static/uploads/')) {
+  fs.mkdirSync('./static/uploads/');
+}
 
 // Configure app
 var app = express();
