@@ -74,11 +74,10 @@ var CreateTableData = function(request, goods) {
     }
 
     var currensies = {
-      rub: '₽',
+      rub: ' ₽',
       usd: '$',
       eur: '€'
     }
-    console.log(product);
 
     var sPrice = product.selling_price_currency=='rub'? product.selling_price+currensies.rub : currensies[product.selling_price_currency]+product.selling_price;
     var pPrice = product.purchase_price_currency=='rub'? product.purchase_price+currensies.rub : currensies[product.purchase_price_currency]+product.purchase_price;
