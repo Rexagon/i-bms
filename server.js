@@ -47,6 +47,8 @@ app.use('/', require('./routes/goods'));
 app.use('/', require('./routes/goods_groups'));
 app.use('/', require('./routes/orders'));
 app.use('/', require('./routes/stock'));
+app.use('/', require('./routes/stock_acceptance'));
+app.use('/', require('./routes/stock_balances'));
 app.use('/', require('./routes/leads'));
 app.use('/', require('./routes/agents'));
 app.use('/', require('./routes/agents_groups'));

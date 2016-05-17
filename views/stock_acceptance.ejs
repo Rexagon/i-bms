@@ -1,0 +1,29 @@
+<h3 class="page-title"> Склад&nbsp;&nbsp;<a href="/stock" class="btn blue btn-outline">Приёмки</a>&nbsp;&nbsp;<a href="/stock/balances" class="btn blue btn-outline">Остатки</a></h3>
+
+<input type="hidden" id="acceptance-id" value="<%=acceptance.id%>" />
+<div class="row">
+  <div class="col-md-12">
+    <div class="btn green" onclick="Save()">Сохранить</div>
+    <div class="btn default" onclick="Cancel()">Отменить</div>
+    <div class="btn red-pink pull-right" onclick="Delete()">Удалить</div>
+  </div>
+
+  <div class="col-md-12">
+    <form class="form-horizontal" role="form" id="form-general">
+      <br>
+      <div class="form-group">
+        <h4><label class="col-md-2 control-label">Приёмка №<%=acceptance.id==undefined?'-1':acceptance.id%></label></h4>
+        <div class="col-md-4">
+          <div class="input-group input-medium date date-picker" data-date="<%=acceptance.date%>" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+            <input type="text" class="form-control" value="<%=acceptance.date%>" readonly>
+            <span class="input-group-btn">
+              <button class="btn default" type="button">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
