@@ -7,8 +7,7 @@ var path = require('path');
 var fm = require('./firebase-manager.js');
 var fs = require('fs');
 
-console.log(process.env.NODE_ENV);
-var port = process.env.NODE_ENV == "development" ? 1337 : 80;
+var port = process.env.NODE_ENV == "production" ? 80 : 1337;
 
 if (!fs.existsSync('./static/uploads/')) {
   fs.mkdirSync('./static/uploads/');
