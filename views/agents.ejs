@@ -44,7 +44,7 @@
 									<select name="agent_project" class="form-control form-filter input-sm">
 										<option value=""></option>
 										<% for (i = 0; i < projects.length; ++i) { %>
-										<option value="<%-projects[i].id%>"><%=projects[i].name%></option>
+										<option value="<%=projects[i].id%>"><%=projects[i].name%></option>
 										<% } %>
 									</select>
 								</td>
@@ -52,7 +52,7 @@
 									<select name="agent_group" class="form-control form-filter input-sm">
 										<option value=""></option>
 										<% for (i = 0; i < groups.length; ++i) { %>
-										<option value="<%-groups[i].id%>"><%=groups[i].name%></option>
+										<option value="<%=groups[i].id%>"><%=groups[i].name%></option>
 										<% } %>
 									</select>
 								</td>

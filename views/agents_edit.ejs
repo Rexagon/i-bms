@@ -46,10 +46,7 @@
 										<select class="form-control" name="project">
 											<option value='' <%=agent.project=='' ? 'selected': '' %>></option>
 											<% for (var i = 0; i < projects.length; ++i) { %>
-												<option <%=agent.project==projects[i].id? 'selected': '' %> value="
-													<%= projects[i].id %>">
-														<%=projects[i].name%>
-												</option>
+												<option <%=agent.project==projects[i].id? 'selected': '' %> value="<%= projects[i].id %>"><%=projects[i].name%></option>
 												<% } %>
 										</select>
 									</div>
@@ -83,9 +80,7 @@
 									<div class="col-md-9">
 										<select multiple="multiple" class="multi-select" id="groups" name="groups">
 											<% for (var i = 0; i < groups.length; ++i) { %>
-												<option value="<%= groups[i].id %>" <%=agent.groups.indexOf(groups[i].id)!=-1 ? 'selected': ''%>>
-													<%=groups[i].name%>
-												</option>
+												<option value="<%= groups[i].id %>" <%=agent.groups.indexOf(groups[i].id)!=-1 ? 'selected': ''%>><%=groups[i].name%></option>
 												<% } %>
 										</select>
 									</div>

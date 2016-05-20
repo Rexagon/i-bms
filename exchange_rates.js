@@ -5,7 +5,7 @@ var schedule = require('node-schedule');
 
 var currentRates = {};
 
-var GetExchangeRates = function(callback) {
+var ParseExchangeRates = function(callback) {
   http.get('http://www.cbr.ru/scripts/XML_daily.asp', function(res) {
     var xml = '';
     res.on('data', function(chunk) {
@@ -24,7 +24,7 @@ var GetExchangeRates = function(callback) {
 }
 
 var UpdateExchangeRates = function() {
-  GetExchangeRates(function(res) {
+  ParseExchangeRates(function(res) {
     var date = res.date;
 
     fm.ref().child('directory/currency/').orderByChild('date').equalTo(date).once('value', function(snapshot) {
@@ -43,9 +43,11 @@ UpdateExchangeRates();
 var dayRate = schedule.scheduleJob('0 * 15 * * *', function(){
   UpdateExchangeRates();
 });
-
 var reserveRate = schedule.scheduleJob('0 * 19 * * *', function(){
   UpdateExchangeRates();
 });
 
 module.exports.current = currentRates;
+module.exports.getRates = function(date) {
+
+}

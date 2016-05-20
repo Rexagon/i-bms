@@ -131,32 +131,29 @@ router.post('/agents/get', app.restrict, app.restrictPage, function(req, res) {
 });
 
 // /AGENTS/EDIT
-fm.ref().child('agents').on('child_added', function(childSnapshot, prevChildKey) {
-  childSnapshot.ref().child('groups').orderByValue().equalTo('providers').once('value', function(snapshot) {
-		if (snapshot.exists()) {
-			childSnapshot.ref().child('provider').set('true');
-		}
+var UpdateSpecialAgents = function(childSnapshot) {
+	childSnapshot.ref().child('groups').orderByValue().equalTo('providers').once('value', function(snapshot) {
+		var value = snapshot.exists() ? 'true' : 'false';
+		childSnapshot.ref().child('provider').set(value);
+	});
+
+	childSnapshot.ref().child('groups').orderByValue().equalTo('-KDICNJQphBg7ocJmIIe').once('value', function(snapshot) {
+		var value = snapshot.exists() ? 'true' : 'false';
+		childSnapshot.ref().child('ivm_legal_entity').set(value);
 	});
 
 	childSnapshot.ref().child('groups').orderByValue().equalTo('producers').once('value', function(snapshot) {
-		if (snapshot.exists()) {
-			childSnapshot.ref().child('producer').set('true');
-		}
+		var value = snapshot.exists() ? 'true' : 'false';
+		childSnapshot.ref().child('producer').set(value);
 	});
+}
+
+fm.ref().child('agents').on('child_added', function(childSnapshot, prevChildKey) {
+  UpdateSpecialAgents(childSnapshot);
 });
 
 fm.ref().child('agents').on('child_changed', function(childSnapshot, prevChildKey) {
-	childSnapshot.ref().child('groups').orderByValue().equalTo('providers').once('value', function(snapshot) {
-		if (snapshot.exists()) {
-			childSnapshot.ref().child('provider').set('true');
-		}
-	});
-
-	childSnapshot.ref().child('groups').orderByValue().equalTo('producers').once('value', function(snapshot) {
-		if (snapshot.exists()) {
-			childSnapshot.ref().child('producer').set('true');
-		}
-	});
+	UpdateSpecialAgents(childSnapshot)
 });
 
 router.get('/agents/edit', app.restrict, app.restrictPage, function(req, res) {

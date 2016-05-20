@@ -30,6 +30,7 @@ router.post('/currency/get_rates/', app.restrict, app.restrictPage, function(req
       var v = data.val();
       rates.push({date: v.date, usd: v.usd, eur: v.eur});
     });
+    rates.reverse();
 
     var totalRecordsNum = parseInt(rates.length);
     var displayLength = parseInt(req.body.length);

@@ -12,15 +12,87 @@
     <form class="form-horizontal" role="form" id="form-general">
       <br>
       <div class="form-group">
-        <h4><label class="col-md-2 control-label">Приёмка №<%=acceptance.id==undefined?'-1':acceptance.id%></label></h4>
+        <h4><label class="col-md-2 control-label"><%=acceptance.id==undefined?'Новая приёмка':'Приёмка №'+acceptance.id%> от</label></h4>
         <div class="col-md-4">
           <div class="input-group input-medium date date-picker" data-date="<%=acceptance.date%>" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-            <input type="text" class="form-control" value="<%=acceptance.date%>" readonly>
+            <input type="text" class="form-control" value="<%=acceptance.date%>" name="date" readonly>
             <span class="input-group-btn">
               <button class="btn default" type="button">
                 <i class="fa fa-calendar"></i>
               </button>
             </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="col-md-4 control-label">Организация</label>
+          <div class="col-md-8">
+            <select name="organization" class="form-control">
+              <option value="" <%=acceptance.organization==''?'selected':''%>></option>
+              <% for (i = 0; i < organizations.length; ++i) { %>
+              <option value="<%=organizations[i].id%>" <%=acceptance.organization==organizations[i].id?'selected':''%>><%=organizations[i].name%></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Поставщик</label>
+          <div class="col-md-8">
+            <select name="provider" class="form-control">
+              <option value="" <%=acceptance.provider==''?'selected':''%>></option>
+              <% for (i = 0; i < providers.length; ++i) { %>
+              <option value="<%=providers[i].id%>" <%=acceptance.provider==providers[i].id?'selected':''%>><%=providers[i].name%></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Юр. лицо</label>
+          <div class="col-md-8">
+            <select name="provider" class="form-control">
+
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Проект</label>
+          <div class="col-md-8">
+            <select name="project" class="form-control">
+              <option value="" <%=acceptance.project==''?'selected':''%>></option>
+              <% for (i = 0; i < projects.length; ++i) { %>
+              <option value="<%=projects[i].id%>" <%=acceptance.project==projects[i].id?'selected':''%>><%=projects[i].name%></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="col-md-3 control-label">Склад</label>
+          <div class="col-md-8">
+            <select name="warehouse" class="form-control">
+              <option value="" <%=acceptance.warehouse==''?'selected':''%>></option>
+              <% for (i = 0; i < warehouses.length; ++i) { %>
+              <option value="<%=warehouses[i].id%>" <%=acceptance.warehouse==warehouses[i].id?'selected':''%>><%=warehouses[i].name%></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Входящий номер</label>
+          <div class="col-md-4">
+            <div class="input-group input-medium date date-picker" data-date="<%=acceptance.incoming_call_date%>" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+              <input type="text" class="form-control" value="<%=acceptance.incoming_call_date%>" name="incoming_call_date" readonly>
+              <span class="input-group-btn">
+                <button class="btn default" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" name="incoming_call" placeholder="" value="<%=acceptance.incoming_call%>">
           </div>
         </div>
       </div>
