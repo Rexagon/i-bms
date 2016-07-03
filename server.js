@@ -7,7 +7,7 @@ var path = require('path');
 var fm = require('./firebase-manager.js');
 var fs = require('fs');
 
-var port = process.env.NODE_ENV == "production" ? 80 : 1337;
+var port = 1337;
 
 if (!fs.existsSync('./static/uploads/')) {
   fs.mkdirSync('./static/uploads/');
@@ -27,12 +27,6 @@ app.use(session({
     secret: 'enoj is the best',
     cookie: { maxAge: 25920000 /* 3 days */ }
 }));
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://ivamar.ru');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  next();
-});
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname,'static','favicon.ico')));
 
